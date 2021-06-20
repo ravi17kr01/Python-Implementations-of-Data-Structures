@@ -1,0 +1,249 @@
+Recently, I’ve been practicing coding on LeetCode, which is a website holding hundreds of coding challenges with testing cases.
+When starting a new coding challenge, I’ll always think of the solution in terms of both algorithm and data structure at the same time. Oftentimes, a proper data structure makes the solution much easier.
+Here, I summarize how I implement some of the popular data structures for a quick use to solve some LeetCode questions.
+Algorithms + Data Structures = Programs
+— Niklaus Wirth
+Stack
+Unlike an array structure, which allows random access at all the positions, a stack limits the inserting and removing operation to only one side of the data sequence. A stack follows the last in, first out (LIFO) principle.
+In Python, stack can be implemented using a list. To follow the LIFO principle, inserting and removing operations both occur at the tail of the list.
+
+Python implementation of a stack
+
+class stack:
+  # by default pass in [] as inivial value
+  def __init__(self,initialVal=[]):
+    self.stack = initialVal
+  
+  # push is to append to the tail of the list
+  def push(self,ele):
+    self.stack.append(ele)
+    return self.stack
+  
+  # pop is to remove from the tail of the list
+  def pop(self):
+    return self.stack.pop(-1)
+  
+  def checkStack(self):
+    print(self.stack)
+  
+  def checkTop(self):
+    print(self.stack[-1])
+
+Queue
+Similar to a stack, the queue also limits the position for inserting and removing am operation on a sequence of data. However, unlike a stack, a queue follows the first in, first out (FIFO) principle.
+In Python, a queue can also be implemented using a list. To follow the FIFO principle, the inserting operation occurs at the tail of the list, while the removing operation occurs at the head of the list.
+
+Python implementation of a queue
+
+class queue:
+  # by default pass in [] as inivial value
+  def __init__(self,initialVal=[]):
+    self.queue = initialVal
+  
+  # enqueue is to append to the tail of the list
+  def enqueue(self,ele):
+    self.queue.append(ele)
+    return self.queue
+  
+  # dequeue is to remove from the head of the list
+  def dequeue(self):
+    return self.queue.pop(0)
+  
+  def checkQueue(self):
+    print(self.queue)
+  
+  def checkHead(self):
+    print(self.queue[0])
+  
+  def checkTail(self):
+    print(self.queue[-1])
+    
+Set
+A set object is an unordered collection of distinct hashable objects. It’s one of Python’s built-in types and allows the dynamic adding and removing of elements, iteration, and operations with another set objects.
+
+Python code for operations on one set
+
+# set initialization by passing in a list
+myset = set([1,2,3,3,3])
+
+# set initialization using {}
+myset = {1,2,3,3,3}
+
+# iteration of set
+for ele in myset:
+  print(ele)
+
+# check if ele in set:
+print(True if ele in myset else False)
+
+# add an element to set:
+myset.add(ele)
+
+# remove an element from set
+myset.remove(ele)
+
+# get length of the set
+print(len(myset))
+
+Python code for operations on two sets
+myset1 = {1,2,3}
+myset2 = {1,2,4,5}
+
+# union
+myset = myset1.union(myset2)
+
+# intersection
+myset = myset1.intersection(myset2)
+
+# difference
+myset = myset1.difference(myset2)
+
+Dictionary
+A dictionary contains mapping information of (key, value) pairs. Given a key, the corresponding value can be found in the dictionary. It’s also one of Python’s built-in types. The (key, value) pairs can be dynamically added, removed, and modified. A dictionary also allows iteration through the keys, values, and (key, value) pairs.
+
+Python code for operations on a dictionary
+
+# dictionary initialization using {}
+mydict = {'a':1,'b':2}
+
+# add new (key,value) pair
+mydict['c'] = 3
+
+# modify existing (key,value) pair
+mydict['a'] = 5
+
+# remove (key,value) pair
+mydict.pop('a')
+
+# get length of the dictionary
+print(len(mydict))
+
+# iteration through keys
+for key in mydict.keys():
+  print(key)
+
+# iteration through values
+for value in mydict.values():
+  print(value)
+
+# iteration through (key,value) pairs
+for key,value in mydict.items():
+  print(key,value)
+
+
+Linked List
+A linked list is a linear data structure, with the previous node pointing to the next node. It can be implemented by defining a ListNode class.
+
+class ListNode:
+  def _init_(self,val):
+    self.val = val
+    self.next = None
+
+# initiation of linked list
+headNode = ListNode(1)
+secondNode = ListNode(2)
+thirdNode = ListNode(3)
+
+headNode.next = secondNode
+secondNode.next = thirdNode
+
+# iterate through the linked list
+curNode = headNode
+while curNode:
+  print(curNode.val)
+  curNode = curNode.next
+
+# insert new listnode with value of 5 in between the secondNode and thirdNode
+curNode = headNode
+while curNode.val != 2:
+  curNode = curNode.next
+newNode = ListNode(5)
+newNode.next = curNode.next
+curNode.next = newNode
+
+# remove the listnode with value of 5
+curNode = headNode
+while curNode.next.val != 5:
+  curNode = curNode.next
+  curNode.next = curNode.next.next
+
+Python code for a linked list operation
+Tree
+Tree is a nonlinear data structure and allows different transversal ways. Here, the implementation of inorder, preorder, and postorder transversal is provided.
+
+Python code for tree traversals
+
+class TreeNode:
+  def __init__(self, val):
+    self.val = val
+    self.left = None
+    self.right = None
+
+# initialization of a tree
+rootNode = TreeNode(1)
+leftNode = TreeNode(2)
+rightNode = TreeNode(3)
+
+rootNode.left = leftNode
+rootNode.right = rightNode
+
+# inorderTraversal of the tree (Left, Root, Right)
+def inorderTraversal(root):
+  result = []
+  
+  if not root:
+      return self.result
+  
+  def df(node: TreeNode):
+      if not node:
+          return
+      df(node.left)
+      result.append(node.val)
+      df(node.right)
+  
+  df(root)
+  return result
+
+# preorderTraversal of the tree (Root, Left, Right)
+def preorderTraversal(root):
+  result = []
+  
+  if not root:
+      return result
+  
+  def df(node: TreeNode):
+      if not node:
+          return
+      result.append(node.val)
+      df(node.left)
+      df(node.right)
+  
+  df(root)
+  return result
+
+# postorderTraversal of the tree (Left, Right, Root)
+def postorderTraversal(root):
+  result = []
+  
+  if not root:
+      return result
+  
+  def df(node: TreeNode):
+      if not node:
+          return
+      df(node.left)
+      df(node.right)
+      result.append(node.val)
+  
+  df(root)
+  return result
+
+print('inorder: ', inorderTraversal(rootNode))
+print('preorder: ', preorderTraversal(rootNode))
+print('postorder: ', postorderTraversal(rootNode))
+
+Summary
+Choosing the right data structure can help with the programming. In this piece, the Python implementation of some popular data structures is provided.
+Set and Dictionary are Python’s built-in data types, while the other data structures are also not difficult to be implemented, considering that Python allows object-oriented programming.
+I hope you found this piece helpful for learning about data structures.
+Thanks to Zack Shapiro. 
